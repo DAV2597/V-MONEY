@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>S‑MONEY — Connexion</title>
+    <meta name="description" content="S‑MONEY: site d'investissement responsive (HTML/CSS/JS), comptes, tableau de bord, historique, parrainage, et reçus téléchargeables. Stockage local via localStorage." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <section id="screen-auth" class="auth-wrap">
+        <div class="auth">
+            <div class="hero-card">
+                <span class="tag">Bienvenue chez <strong>S‑MONEY</strong></span>
+                <h2>Investissez malin. Gagnez du temps. Faites fructifier votre argent.</h2>
+                <p class="muted">Plateforme d'investissement moderne et sécurisée. Créez votre compte, choisissez votre devise (USD / CDF) et recevez un reçu téléchargeable. Parrainage intégré: chaque 3 nouveaux clients apportés vous rapporte un bonus % sur leur investissement.</p>
+                <div style="height:12px"></div>
+                <div class="payments">
+                    <span class="pay-badge" role="img" aria-label="Banque">🏦 Banque</span>
+                    <span class="pay-badge" role="img" aria-label="Airtel Money">📱 Airtel Money</span>
+                    <span class="pay-badge" role="img" aria-label="Orange Money">🟠 Orange Money</span>
+                    <span class="pay-badge" role="img" aria-label="Lumicash">💡 Lumicash</span>
+                    <span class="pay-badge" role="img" aria-label="Carte bancaire">💳 Carte</span>
+                </div>
+                <div style="height:12px"></div>
+                <div class="muted">WhatsApp & Numéros d'investissement: <strong>0995391926 / 0892542916</strong></div>
+            </div>
+            <div class="card">
+                <div class="actions" style="justify-content: space-between;">
+                    <a href="/login.html" class="btn ghost active">Se connecter</a>
+                    <a href="/register.html" class="btn ghost">Créer un compte</a>
+                </div>
+                <h3 style="margin-top: 14px;">Accédez à votre compte</h3>
+
+                <form id="form-login" class="form">
+                    <div class="field">
+                        <label for="login-identifier">Email ou Numéro</label>
+                        <input type="text" id="login-identifier" placeholder="ex: +243 97..., ou email" required />
+                    </div>
+                    <div class="field">
+                        <label for="login-password">Mot de passe</label>
+                        <input type="password" id="login-password" required />
+                    </div>
+                    <div class="actions">
+                        <button type="submit" class="btn primary">Se connecter</button>
+                        <a href="/forgot-password.html">Mot de passe oublié ?</a>
+                    </div>
+                    <div id="login-msg" class="help"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

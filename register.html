@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>S‑MONEY — Créer un compte</title>
+    <meta name="description" content="S‑MONEY: site d'investissement responsive (HTML/CSS/JS), comptes, tableau de bord, historique, parrainage, et reçus téléchargeables. Stockage local via localStorage." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <section id="screen-auth" class="auth-wrap">
+        <div class="auth">
+            <div class="hero-card">
+                <span class="tag">Bienvenue chez <strong>S‑MONEY</strong></span>
+                <h2>Investissez malin. Gagnez du temps. Faites fructifier votre argent.</h2>
+                <p class="muted">Plateforme d'investissement moderne et sécurisée. Créez votre compte, choisissez votre devise (USD / CDF) et recevez un reçu téléchargeable. Parrainage intégré: chaque 3 nouveaux clients apportés vous rapporte un bonus % sur leur investissement.</p>
+                <div style="height:12px"></div>
+                <div class="payments">
+                    <span class="pay-badge" role="img" aria-label="Banque">🏦 Banque</span>
+                    <span class="pay-badge" role="img" aria-label="Airtel Money">📱 Airtel Money</span>
+                    <span class="pay-badge" role="img" aria-label="Orange Money">🟠 Orange Money</span>
+                    <span class="pay-badge" role="img" aria-label="Lumicash">💡 Lumicash</span>
+                    <span class="pay-badge" role="img" aria-label="Carte bancaire">💳 Carte</span>
+                </div>
+                <div style="height:12px"></div>
+                <div class="muted">WhatsApp & Numéros d'investissement: <strong>0995391926 / 0892542916</strong></div>
+            </div>
+            <div class="card">
+                <div class="actions" style="justify-content: space-between;">
+                    <a href="/login.html" class="btn ghost">Se connecter</a>
+                    <a href="/register.html" class="btn ghost active">Créer un compte</a>
+                </div>
+                <h3 style="margin-top: 14px;">Rejoignez-nous</h3>
+
+                <form id="form-register" class="form">
+                    <div class="row grid-2">
+                        <div class="field">
+                            <label for="reg-lastname">Nom</label>
+                            <input id="reg-lastname" required />
+                        </div>
+                        <div class="field">
+                            <label for="reg-firstname">Prénom</label>
+                            <input id="reg-firstname" required />
+                        </div>
+                    </div>
+                    <div class="row grid-2">
+                        <div class="field">
+                            <label for="reg-gender">Genre</label>
+                            <select id="reg-gender" required>
+                                <option value="">— Sélectionner —</option>
+                                <option>Homme</option>
+                                <option>Femme</option>
+                                <option>Autre</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="reg-country">Pays</label>
+                            <select id="reg-country" required></select>
+                        </div>
+                    </div>
+                    <div class="row grid-2">
+                        <div class="field">
+                            <label for="reg-dial">Indicatif</label>
+                            <select id="reg-dial" required></select>
+                        </div>
+                        <div class="field">
+                            <label for="reg-phone">Numéro de téléphone</label>
+                            <input id="reg-phone" type="tel" placeholder="ex: 995391926" required />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="reg-email">Email</label>
+                        <input id="reg-email" type="email" required />
+                    </div>
+                    <div class="row grid-2">
+                        <div class="field">
+                            <label for="reg-pass">Mot de passe</label>
+                            <input id="reg-pass" type="password" required />
+                        </div>
+                        <div class="field">
+                            <label for="reg-pass2">Confirmer le mot de passe</label>
+                            <input id="reg-pass2" type="password" required />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="reg-sponsor">Code parrain (optionnel)</label>
+                        <input id="reg-sponsor" placeholder="Code de votre parrain si vous en avez" />
+                    </div>
+                    <div class="actions">
+                        <button class="btn primary" type="submit">S'inscrire</button>
+                    </div>
+                    <div id="register-msg" class="help"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

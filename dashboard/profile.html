@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>S‑MONEY — Mon Profil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header class="topbar" id="topbar">
+        <div class="topbar-inner">
+            <div class="brand">S‑MONEY</div>
+            <div class="top-actions">
+                <div id="hi-user" class="muted"></div>
+                <button class="btn ghost" id="btn-open-menu" aria-label="Ouvrir le menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="app" id="app">
+        <aside class="sidebar" id="sidebar">
+            <nav class="menu">
+                <h4>Menu</h4>
+                <a href="/dashboard/index.html" class="nav">📊 Tableau de bord</a>
+                <a href="/dashboard/history.html" class="nav">🗂️ Historique</a>
+                
+                <h4>Mon Compte</h4>
+                <a href="/dashboard/profile.html" class="nav active">👤 Profil</a>
+                <a href="/dashboard/security.html" class="nav">🔒 Sécurité</a>
+                <button class="nav" id="btn-logout">↪️ Se déconnecter</button>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <section id="page-profile" class="page card">
+                <h3>Mon profil</h3>
+                <form id="form-profile" class="form" style="margin-top: 16px;">
+                    <div class="row grid-2">
+                        <div class="field"><label for="pf-lastname">Nom</label><input id="pf-lastname" required /></div>
+                        <div class="field"><label for="pf-firstname">Prénom</label><input id="pf-firstname" required /></div>
+                    </div>
+                    <div class="row grid-2">
+                        <div class="field"><label for="pf-gender">Genre</label><select id="pf-gender"><option>Homme</option><option>Femme</option><option>Autre</option></select></div>
+                        <div class="field"><label for="pf-country">Pays</label><input id="pf-country" /></div>
+                    </div>
+                    <div class="row grid-2">
+                        <div class="field"><label for="pf-phone">Téléphone</label><input id="pf-phone" /></div>
+                        <div class="field"><label for="pf-email">Email</label><input id="pf-email" type="email" /></div>
+                    </div>
+                    <div class="field"><label for="pf-refcode">Code parrain à partager</label><input id="pf-refcode" readonly /></div>
+                    <div class="actions"><button class="btn primary" type="submit">Enregistrer les modifications</button></div>
+                    <div id="profile-msg" class="help"></div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>S‑MONEY — Tableau de bord</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <header class="topbar" id="topbar">
+        <div class="topbar-inner">
+            <div class="brand">S‑MONEY</div>
+            <div class="top-actions">
+                <div id="hi-user" class="muted"></div>
+                <button class="btn ghost" id="btn-open-menu" aria-label="Ouvrir le menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="app" id="app">
+        <aside class="sidebar" id="sidebar">
+            <nav class="menu">
+                <h4>Menu</h4>
+                <a href="/dashboard/index.html" class="nav active">📊 Tableau de bord</a>
+                <a href="/dashboard/history.html" class="nav">🗂️ Historique</a>
+                
+                <h4>Mon Compte</h4>
+                <a href="/dashboard/profile.html" class="nav">👤 Profil</a>
+                <a href="/dashboard/security.html" class="nav">🔒 Sécurité</a>
+                <button class="nav" id="btn-logout">↪️ Se déconnecter</button>
+            </nav>
+            <div style="height:14px"></div>
+            <div class="muted">Paiements acceptés</div>
+            <div class="payments" style="margin-top:8px;">
+                <span class="pay-badge" role="img" aria-label="Airtel Money">📱 Airtel Money</span>
+                <span class="pay-badge" role="img" aria-label="Orange Money">🟠 Orange Money</span>
+                <span class="pay-badge" role="img" aria-label="Lumicash">💡 Lumicash</span>
+            </div>
+            <div style="height:10px"></div>
+            <div class="help">WhatsApp: <strong>0995391926 / 0892542916</strong></div>
+        </aside>
+
+        <main class="content">
+            <section id="page-dashboard" class="page">
+                <div class="card">
+                    <h3>Bienvenue, <span id="dash-username">Client</span> 👋</h3>
+                    <p class="muted">Heureux de vous revoir. Voici la situation de votre compte et votre espace d'investissement.</p>
+                </div>
+
+                <div class="row grid-2">
+                    <div class="card">
+                        <div class="muted">Solde total estimé</div>
+                        <h2 id="balance-total">$ 0</h2>
+                        <div class="muted" id="balance-cdf">CDF 0</div>
+                        <div class="tag">Inclut les bonus de parrainage</div>
+                    </div>
+                    <div class="card">
+                        <div class="muted">Bonus parrainage</div>
+                        <h2 id="ref-bonus">$ 0</h2>
+                        <div class="help">Votre code parrain: <strong id="my-ref-code">—</strong></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Investir maintenant</h3>
+                    <p class="help">Montants par défaut: <strong>$ 2 123 450</strong> et <strong>CDF 5 200 500</strong>. Vous pouvez les garder ou les modifier.</p>
+                    <form id="form-invest" class="form" style="margin-top:8px;">
+                        <div class="row grid-2">
+                            <div class="field">
+                                <label for="inv-name">Nom de l'investisseur</label>
+                                <input id="inv-name" placeholder="Votre nom complet" required />
+                            </div>
+                            <div class="field">
+                                <label for="inv-currency">Devise</label>
+                                <select id="inv-currency" required>
+                                    <option value="USD" selected>USD ($)</option>
+                                    <option value="CDF">CDF (FC)</option>
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="XAF">XAF</option>
+                                    <option value="XOF">XOF</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row grid-2">
+                            <div class="field">
+                                <label for="inv-amount">Montant</label>
+                                <input id="inv-amount" type="number" step="0.01" required />
+                            </div>
+                            <div class="field">
+                                <label for="inv-note">Message / Objet (optionnel)</label>
+                                <input id="inv-note" placeholder="Ex: Pack Or, investissement initial" />
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn primary" type="submit">Envoyer</button>
+                            <div class="help">Un récapitulatif apparaîtra avec le numéro d'investissement et WhatsApp.</div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <footer>
+                © <span id="year"></span> S‑MONEY — Tous droits réservés.
+            </footer>
+        </main>
+    </div>
+
+    <div id="modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Récapitulatif d'investissement</h3>
+                <button class="btn ghost" id="modal-close" aria-label="Fermer la fenêtre">✕</button>
+            </div>
+            <div id="modal-content"></div>
+            <div class="modal-actions">
+                <button class="btn ghost" id="btn-wa">Discuter sur WhatsApp</button>
+                <button class="btn primary" id="btn-download">Télécharger le reçu</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="receipt-content"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/app.js"></script>
+</body>
+</html>

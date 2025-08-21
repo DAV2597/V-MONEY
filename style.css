@@ -1,0 +1,639 @@
+:root {
+    --bg: #0f1220;
+    --bg-soft: #14172a;
+    --card: #171b31;
+    --muted: #96a0b5;
+    --text: #e9ecf8;
+    --accent: #6ae2a1;
+    --accent-2: #77b7ff;
+    --danger: #ff6b6b;
+    --warning: #ffcc66;
+    --success: #35d49a;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --radius: 18px;
+    --radius-sm: 12px;
+    --radius-lg: 28px;
+    --transition: 280ms cubic-bezier(.2, .8, .2, 1);
+}
+
+/* Réinitialisation de base et typographie */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #0c0f1b, var(--bg));
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--accent-2);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: #b7d6ff;
+}
+
+/* Conteneurs principaux */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px;
+}
+
+/* Centrage du contenu principal */
+.content-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Utilitaires */
+.row {
+    display: grid;
+    gap: 18px;
+}
+
+.grid-2 {
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 980px) {
+    .grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Boutons */
+.btn, button {
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform var(--transition), background var(--transition), opacity var(--transition);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn.primary {
+    background: linear-gradient(135deg, var(--accent), #3dd5a3);
+    color: #09120e;
+}
+
+.btn.ghost {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn.ghost.active {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Layout de l'application (après connexion) */
+.topbar {
+    position: sticky;
+    top: 0;
+    background: rgba(15, 18, 32, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    z-index: 20;
+}
+
+.topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.brand {
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.app {
+    display: grid;
+    grid-template-columns: 1fr; /* Par défaut, une seule colonne pour le mobile */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+@media (min-width: 1060px) {
+    .app {
+        grid-template-columns: 280px 1fr;
+    }
+}
+
+/* Sidebar (menu latéral) */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 61px; /* Hauteur du topbar */
+    bottom: 0;
+    width: 80%;
+    max-width: 300px;
+    background: linear-gradient(180deg, var(--bg-soft), #0f1328);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    transform: translateX(-110%);
+    transition: transform var(--transition);
+    z-index: 15;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+@media (min-width: 1060px) {
+    .sidebar {
+        position: sticky;
+        top: 61px;
+        height: calc(100vh - 61px);
+        transform: none;
+        width: auto;
+        max-width: none;
+    }
+    #btn-open-menu {
+        display: none; /* Cacher le bouton burger sur grand écran */
+    }
+}
+
+.menu h4 {
+    margin: 6px 0 8px;
+    color: var(--muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.menu a, .menu button.nav {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid transparent;
+    font-size: 1rem;
+}
+
+.menu a.active, .menu button.nav.active {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.menu a:hover, .menu button.nav:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Espace de contenu */
+.content {
+    padding: 18px;
+}
+
+/* Cartes (cards) */
+.card {
+    background: linear-gradient(180deg, var(--card), #141a2e);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 18px;
+}
+
+.card h3 {
+    margin: 0 0 10px;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.card p, .card h3 {
+    word-wrap: break-word;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 12px;
+}
+
+/* Formulaires */
+.form {
+    display: grid;
+    gap: 12px;
+}
+
+.field {
+    display: grid;
+    gap: 6px;
+}
+
+label {
+    font-weight: 600;
+    color: #cfd6ea;
+}
+
+input, select, textarea {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 12px;
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    font-size: 1rem;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(106, 226, 161, 0.18);
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.help {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.error {
+    color: var(--danger);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.success {
+    color: var(--success);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Tables */
+.table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+th {
+    color: #cfd6ea;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Modale */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal {
+    width: min(560px, 92vw);
+    background: var(--card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    box-shadow: var(--shadow);
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(.2,.8,.2,1);
+}
+
+.modal-backdrop.open {
+    display: flex;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.modal-backdrop.open .modal {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 14px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Pages d'authentification */
+.auth-wrap {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.auth {
+    width: min(820px, 96vw);
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 980px) {
+    .auth {
+        grid-template-columns: 1.2fr 1fr;
+    }
+}
+
+.hero-card {
+    background: radial-gradient(1200px 500px at 20% 0%, rgba(119, 183, 255, .16), transparent), linear-gradient(180deg, var(--card), #12172b);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow);
+}
+
+.hero-card h2 {
+    margin: 6px 0 10px;
+    font-size: 1.8rem;
+}
+
+/* Badges de paiement */
+.payments {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.pay-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px dashed rgba(255, 255, 255, 0.22);
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    font-weight: 600;
+}
+
+/* Pied de page */
+footer {
+    margin-top: 24px;
+    padding: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--muted);
+    text-align: center;
+}
+
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.socials a {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    transition: transform var(--transition), background var(--transition);
+}
+
+.socials a:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Styles pour le reçu */
+#receipt-content {
+    padding: 20px;
+    background-color: white;
+    color: black;
+    font-family: monospace;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#receipt-content h3 {
+    text-align: center;
+}
+#receipt-content .receipt-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ================================================== */
+/* == AMÉLIORATIONS RESPONSIVE TABLETTE & MOBILE == */
+/* ================================================== */
+
+/* Pour les téléphones mobiles (en dessous de 768px) */
+@media (max-width: 979px) { /* Étendu aux tablettes pour un meilleur responsive */
+    body {
+        font-size: 15px; /* Police de base plus lisible sur petit écran */
+    }
+
+    .auth-wrap {
+        padding: 12px; /* Moins de padding sur les bords */
+    }
+
+    .auth {
+        width: 100%; /* Le formulaire prend toute la largeur */
+        gap: 16px;
+    }
+
+    .hero-card {
+        padding: 20px; /* Moins de padding */
+    }
+
+    .hero-card h2 {
+        font-size: 1.5rem; /* Titre un peu plus petit */
+    }
+
+    .actions {
+        flex-direction: column; /* Les boutons se superposent pour gagner de la place */
+        align-items: stretch; /* Ils prennent toute la largeur */
+    }
+
+    .actions a {
+        text-align: center; /* Centrer le texte du lien "mot de passe oublié" */
+        padding: 8px;
+    }
+
+    /* Ajustements pour le tableau de bord sur mobile */
+    .content {
+        padding: 12px;
+    }
+
+    .topbar-inner {
+        padding: 10px 12px;
+    }
+
+    .brand {
+        font-size: 1.1rem;
+    }
+
+    .modal {
+        width: 95vw; /* La modale prend presque toute la largeur */
+        padding: 16px;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .modal-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* == Tableau responsive (Historique) == */
+    .table-wrap {
+        border: none; /* On enlève la bordure du conteneur sur mobile */
+        overflow-x: hidden; /* On désactive le scroll horizontal */
+    }
+
+    table {
+        min-width: 100%;
+        border: 0;
+    }
+
+    table thead {
+        /* Cacher les en-têtes de tableau sur mobile */
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table tr {
+        /* Chaque ligne devient une carte */
+        display: block;
+        margin-bottom: 16px;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+        padding: 10px;
+    }
+
+    table td {
+        display: block;
+        text-align: right; /* Aligne la valeur à droite */
+        font-size: 14px;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+        padding-left: 50%; /* Laisse de la place pour le label */
+        position: relative;
+        white-space: normal; /* Permet au texte de revenir à la ligne */
+        text-overflow: initial;
+        overflow: visible;
+    }
+
+    table td::before {
+        /* Ajoute le label (Date, Nom, etc.) avant la valeur */
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: var(--muted);
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+    /* Fin Tableau responsive */
+}

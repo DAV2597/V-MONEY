@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>S‑MONEY — Sécurité</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header class="topbar" id="topbar">
+        <div class="topbar-inner">
+            <div class="brand">S‑MONEY</div>
+            <div class="top-actions">
+                <div id="hi-user" class="muted"></div>
+                <button class="btn ghost" id="btn-open-menu" aria-label="Ouvrir le menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="app" id="app">
+        <aside class="sidebar" id="sidebar">
+            <nav class="menu">
+                <h4>Menu</h4>
+                <a href="/dashboard/index.html" class="nav">📊 Tableau de bord</a>
+                <a href="/dashboard/history.html" class="nav">🗂️ Historique</a>
+                
+                <h4>Mon Compte</h4>
+                <a href="/dashboard/profile.html" class="nav">👤 Profil</a>
+                <a href="/dashboard/security.html" class="nav active">🔒 Sécurité</a>
+                <button class="nav" id="btn-logout">↪️ Se déconnecter</button>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <section id="page-security" class="page card">
+                <h3>Sécurité</h3>
+                <form id="form-password" class="form" style="margin-top: 16px;">
+                    <div class="row grid-2">
+                        <div class="field"><label for="sec-old">Mot de passe actuel</label><input id="sec-old" type="password" required /></div>
+                        <div class="field"><label for="sec-new">Nouveau mot de passe</label><input id="sec-new" type="password" required /></div>
+                    </div>
+                    <div class="field"><label for="sec-new2">Confirmer le nouveau mot de passe</label><input id="sec-new2" type="password" required /></div>
+                    <div class="actions"><button class="btn primary" type="submit">Changer le mot de passe</button></div>
+                    <div id="sec-msg" class="help"></div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
