@@ -46,7 +46,7 @@ function handleLogin(e) {
         msgDiv.textContent = 'Connexion réussie ! Redirection...';
         msgDiv.className = 'help success';
         setTimeout(() => {
-            window.location.href = '/dashboard/index.html'; // Redirection vers le tableau de bord
+            window.location.href = 'dashboard/index.html'; // Redirection vers le tableau de bord
         }, 1000);
     } else {
         msgDiv.textContent = 'Identifiant ou mot de passe incorrect.';
@@ -110,7 +110,7 @@ function handleRegister(e) {
     msgDiv.textContent = 'Inscription réussie ! Redirection vers votre tableau de bord...';
     msgDiv.className = 'help success';
     setTimeout(() => {
-        window.location.href = '/dashboard/index.html'; // Redirection
+        window.location.href = 'dashboard/index.html'; // Redirection
     }, 1500);
 }
 
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Si l'utilisateur est déjà connecté, on le redirige vers le tableau de bord
     const path = window.location.pathname;
     if (currentUser() && (path.includes('login.html') || path.includes('register.html') || path.includes('forgot-password.html'))) {
-        window.location.href = '/dashboard/index.html';
+        window.location.href = 'dashboard/index.html';
         return; // Arrêter l'exécution pour éviter d'attacher des listeners inutiles
     }
 

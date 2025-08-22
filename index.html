@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Redirection... S-MONEY</title>
-    <script src="/js/main.js"></script>
+    <script src="js/main.js"></script>
     <script>
         // Ce script agit comme un routeur côté client.
         // Il vérifie si un utilisateur est connecté et le redirige
         // vers la page appropriée.
         document.addEventListener('DOMContentLoaded', () => {
             if (currentUser()) {
-                window.location.replace('/dashboard/index.html');
+                window.location.replace('dashboard/index.html');
             } else {
-                window.location.replace('/login.html');
+                window.location.replace('login.html');
             }
         });
     </script>

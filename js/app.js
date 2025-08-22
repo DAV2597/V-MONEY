@@ -66,7 +66,8 @@ function setupDashboardPage(user) {
     $('#my-ref-code').textContent = user.refCode;
     $('#inv-name').value = `${user.firstname} ${user.lastname}`; // Pré-remplir le nom
 
-    refreshBalances(user);
+    const balances = refreshBalances(user);
+    checkWithdrawalEligibility(balances);
 
     $('#form-invest').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -116,6 +117,11 @@ function refreshBalances(user) {
     $('#balance-total').textContent = `$ ${fmt.format(totalUSD + totalBonus)}`;
     $('#balance-cdf').textContent = `CDF ${fmt.format(totalCDF)}`;
     $('#ref-bonus').textContent = `$ ${fmt.format(totalBonus)}`;
+
+    return {
+        usd: totalUSD + totalBonus,
+        cdf: totalCDF
+    };
 }
 
 /**
@@ -266,5 +272,97 @@ function handleDownload(investment) {
         link.href = canvas.toDataURL('image/png');
         link.click();
         receiptDiv.style.display = 'none';
+    });
+}
+// --- LOGIQUE DE RETRAIT D'ARGENT ---
+// À ajouter dans votre fichier js/app.js
+
+/**
+ * Vérifie si l'utilisateur est éligible au retrait et affiche la section correspondante.
+ * @param {object} userData - L'objet contenant les données de l'utilisateur, y compris les soldes.
+ */
+function checkWithdrawalEligibility(balances) {
+    const withdrawSection = document.getElementById('section-withdraw');
+    if (!withdrawSection) return;
+
+    // Assurez-vous que les soldes sont des nombres
+    const usdBalance = parseFloat(balances.usd) || 0;
+    const cdfBalance = parseFloat(balances.cdf) || 0;
+
+    // Conditions de retrait : 10$ ou 30.000 FC
+    const canWithdraw = usdBalance >= 10 || cdfBalance >= 30000;
+
+    if (canWithdraw) {
+        withdrawSection.style.display = 'block';
+    } else {
+        withdrawSection.style.display = 'none';
+    }
+}
+
+// IMPORTANT : Vous devez appeler la fonction `checkWithdrawalEligibility(userData)` 
+// juste après avoir mis à jour l'affichage du solde sur le tableau de bord.
+
+
+// Gère la soumission du formulaire de retrait
+const formWithdraw = document.getElementById('form-withdraw');
+if (formWithdraw) {
+    formWithdraw.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Récupérer les données du formulaire
+        const amount = parseFloat(document.getElementById('withdraw-amount').value);
+        const currency = document.getElementById('withdraw-currency').value;
+        const method = document.getElementById('withdraw-method').value;
+        const phone = document.getElementById('withdraw-phone').value;
+        const userName = document.getElementById('dash-username').textContent || 'Client';
+
+        // Valider le montant selon vos règles
+        if (currency === 'USD' && amount > 3) {
+            alert('Le retrait maximum est de 3 $ par transaction.');
+            return;
+        }
+        if (currency === 'CDF' && amount > 10000) {
+            alert('Le retrait maximum est de 10.000 FC par transaction.');
+            return;
+        }
+        if (!amount || amount <= 0) {
+            alert('Veuillez entrer un montant valide.');
+            return;
+        }
+
+        // Générer un message pour le récapitulatif
+        const withdrawalId = `RET-${Date.now()}`;
+        const message = `
+            Demande de Retrait:
+            --------------------
+            ID Retrait: ${withdrawalId}
+            Client: ${userName}
+            Montant: ${amount.toLocaleString()} ${currency}
+            Méthode: ${method}
+            Numéro: ${phone}
+            --------------------
+            En attente de traitement.
+        `;
+
+        // Réutiliser le modal existant pour afficher le récapitulatif
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const btnWa = document.getElementById('btn-wa');
+        const btnDownload = document.getElementById('btn-download');
+
+        modalTitle.textContent = 'Récapitulatif de Retrait';
+        modalContent.innerHTML = `<pre>${message}</pre>`; // <pre> pour garder le formatage
+        btnDownload.style.display = 'none'; // On cache le bouton de reçu
+        btnWa.textContent = 'Contacter le support pour finaliser';
+        btnWa.style.display = 'inline-block';
+
+        // Configurer le lien WhatsApp pour la demande
+        const waMessage = encodeURIComponent(`Bonjour, je souhaite finaliser ma demande de retrait.\n\nID: ${withdrawalId}\nMontant: ${amount} ${currency}\nNuméro: ${phone}`);
+        // Remplacez par votre numéro WhatsApp si différent
+        const waLink = `https://wa.me/243995391926?text=${waMessage}`; 
+        btnWa.onclick = () => window.open(waLink, '_blank');
+
+        modal.style.display = 'flex';
     });
 }
