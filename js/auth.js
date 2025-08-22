@@ -18,6 +18,70 @@ function populateCountrySelects() {
             const option = document.createElement('option');
             option.value = c.name;
             option.textContent = c.name;
+/**
+ * Gère la soumission du formulaire de retrait.
+ */
+function handleWithdrawal(e, amount, currency) {
+    e.preventDefault();
+    const msgDiv = $('#withdrawal-msg');
+    const db = loadDB();
+    const userId = db.sessions.currentUserId;
+    const user = db.users.find(u => u.id === userId);
+
+    if (!user) {
+        msgDiv.textContent = 'Utilisateur non trouvé.';
+        msgDiv.className = 'help error';
+        return;
+    }
+
+    if (currency === 'USD') {
+        if (user.balanceUSD < amount) {
+            msgDiv.textContent = 'Solde USD insuffisant.';
+            msgDiv.className = 'help error';
+            return;
+        }
+        user.balanceUSD -= amount;
+    } else if (currency === 'CDF') {
+        if (user.balanceCDF < amount) {
+            msgDiv.textContent = 'Solde CDF insuffisant.';
+            msgDiv.className = 'help error';
+            return;
+        }
+        user.balanceCDF -= amount;
+    } else {
+        msgDiv.textContent = 'Devise non supportée.';
+        msgDiv.className = 'help error';
+        return;
+    }
+
+    saveDB(db);
+
+    msgDiv.textContent = `Retrait de ${amount} ${currency} effectué avec succès.`;
+    msgDiv.className = 'help success';
+
+    // Mise à jour de l'affichage des soldes (si nécessaire)
+    // updateBalanceDisplay(user);
+}
+
+// Exemple d'appel (à adapter à ton formulaire)
+// const formWithdrawal = $('#form-withdrawal');
+// if (formWithdrawal) {
+//     formWithdrawal.addEventListener('submit', (e) => {
+//         const amount = parseFloat($('#withdrawal-amount').value.trim());
+//         const currency = $('#withdrawal-currency').value; // 'USD' ou 'CDF'
+//         handleWithdrawal(e, amount, currency);
+//     });
+// }
+
+// Fonction hypothétique pour mettre à jour l'affichage des soldes
+// function updateBalanceDisplay(user) {
+//     $('#balance-usd').textContent = user.balanceUSD;
+//     $('#balance-cdf').textContent = user.balanceCDF;
+// }
+
+
+
+
             countrySelect.appendChild(option);
 
             const dialOption = document.createElement('option');

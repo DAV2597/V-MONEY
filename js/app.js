@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Gardien d'authentification : si personne n'est connecté, on redirige vers la page de connexion.
     if (!user) {
-        window.location.href = '/login.html';
+        window.location.href = '../login.html';
         return;
     }
 
